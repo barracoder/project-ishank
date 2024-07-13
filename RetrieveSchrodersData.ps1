@@ -36,7 +36,7 @@ function Fetch-AndSave-MetadataAndContent {
 
     # List to hold root noteId and attachment noteIds
     $noteIdsToFetchContent = @($noteId)
-    $noteIdsToFetchContent += $metadataResponse.attachments.noteId
+    $noteIdsToFetchContent += $metadataResponse.attachments.attachment_note_id
 
     foreach ($id in $noteIdsToFetchContent) {
         $contentUrl = "$baseUrl/notes/$id/content"
