@@ -17,10 +17,18 @@ app.get('/notes/:noteId', (req, res) => {
 });
 
 // Endpoint to return a random byte array
+let callCount = 0; // Initialize a call counter outside the endpoint
+
 app.get('/notes/:noteId/content', (req, res) => {
+  callCount++; // Increment the call counter
+  if (callCount % 10 === 0) {
+    // Every 10th call, return a 404 error
+    return res.status(404).send('Content not found');
+  }
+
   const randomBytes = Buffer.alloc(10); // Change 10 to the desired size of the byte array
   for (let i = 0; i < randomBytes.length; i++) {
-	randomBytes[i] = Math.floor(Math.random() * 256); // Random byte
+    randomBytes[i] = Math.floor(Math.random() * 256); // Random byte
   }
   res.type('application/octet-stream').send(randomBytes);
 });
